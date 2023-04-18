@@ -1,10 +1,10 @@
 import Pusher from 'pusher-js';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
-import axios from './axiosIn';
 import Chat from './Chat';
 import Sidebar from './Sidebar';
+import axios from './axiosIn';
 
 function App() {
   const [thaiM, setThai] = useState();
