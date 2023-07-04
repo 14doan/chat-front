@@ -18,10 +18,7 @@ function App() {
         response.data.map((item) => ({ id: item.info.uuid, name: item.name }))
       );
     });
-  }, []);
-  // console.log('rooms are: ', rooms);
 
-  useEffect(() => {
     axios.get('/thaimessages/sync').then((response) => {
       // console.log('reponse is:', response);
       setThai(response.data);
@@ -31,6 +28,18 @@ function App() {
       setViet(response.data);
     });
   }, []);
+  // console.log('rooms are: ', rooms);
+
+  // useEffect(() => {
+  //   axios.get('/thaimessages/sync').then((response) => {
+  //     // console.log('reponse is:', response);
+  //     setThai(response.data);
+  //   });
+  //   axios.get('/vietmessages/sync').then((response) => {
+  //     // console.log('reponse is:', response);
+  //     setViet(response.data);
+  //   });
+  // }, []);
 
   useEffect(() => {
     const pusher = new Pusher('78ff701f11668f966776', {
@@ -43,19 +52,12 @@ function App() {
       setThai([...thaiM, newM]);
     });
 
-    return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
-    };
-  }, [thaiM]);
-
-  useEffect(() => {
-    const pusher = new Pusher('78ff701f11668f966776', {
+    const pusher2 = new Pusher('78ff701f11668f966776', {
       cluster: 'eu',
     });
 
-    const channel = pusher.subscribe('vietcos');
-    channel.bind('inserted', (newM) => {
+    const channel2 = pusher2.subscribe('vietcos');
+    channel2.bind('inserted', (newM) => {
       // alert(JSON.stringify(data));
       setViet([...vietM, newM]);
     });
@@ -63,8 +65,27 @@ function App() {
     return () => {
       channel.unbind_all();
       channel.unsubscribe();
+      channel2.unbind_all();
+      channel2.unsubscribe();
     };
-  }, [vietM]);
+  }, [thaiM, vietM]);
+
+  // useEffect(() => {
+  //   const pusher = new Pusher('78ff701f11668f966776', {
+  //     cluster: 'eu',
+  //   });
+
+  //   const channel = pusher.subscribe('vietcos');
+  //   channel.bind('inserted', (newM) => {
+  //     // alert(JSON.stringify(data));
+  //     setViet([...vietM, newM]);
+  //   });
+
+  //   return () => {
+  //     channel.unbind_all();
+  //     channel.unsubscribe();
+  //   };
+  // }, [vietM]);
 
   // console.log('these are thaiM: ', thaiM);
 
