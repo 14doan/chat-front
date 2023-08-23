@@ -93,7 +93,7 @@ function App() {
     <div className="app">
       {isLoading ? (
         // Render loading animation here
-        <div className="loading-spinner">Loading...</div>
+        <div className="loading-spinner animate-pulse">Loading...</div>
       ) : (
         // Render the app content once data is loaded
 
